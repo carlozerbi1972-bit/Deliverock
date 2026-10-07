@@ -1,0 +1,20 @@
+DELIVEROCK - SITO ROCK MODERNO
+
+Contenuto:
+index.html - pagina del sito
+style.css - grafica
+script.js - menu smartphone e anno automatico
+assets/logo.png - logo Deliverock
+assets/band.png - immagine della band
+
+PUBBLICAZIONE SU GITHUB:
+1. Apri il repository carlozerbi1972-bit/Deliverock.
+2. Sostituisci il file index.html esistente con quello di questo pacchetto.
+3. Carica style.css, script.js e la cartella assets con i due file.
+4. Effettua Commit changes.
+5. Attendi 1-3 minuti e aggiorna la pagina GitHub Pages.
+
+NOTA: carica i FILE ESTRATTI dallo ZIP, non il file ZIP stesso.
+Per conservare i percorsi corretti, assets/logo.png e assets/band.png devono essere nella cartella assets.
+
+Il sito non contiene date di concerti o contatti inventati. Questi si potranno inserire successivamente.
