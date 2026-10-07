@@ -31,7 +31,8 @@
  const normalize=s=>String(s||'').trim().toLocaleLowerCase('it');
  function render(){
    grid.replaceChildren();
-   const shown=all.filter(s=>filter==='tutti'||s.category===filter);
+   const shown=all.filter(s=>filter==='tutti'||s.category===filter)
+     .sort((a,b)=>a.title.localeCompare(b.title,'it',{sensitivity:'base',numeric:true}));
    shown.forEach((s,i)=>{
      const card=document.createElement('article');card.className='dr-rep-card';
      const n=document.createElement('div');n.className='dr-rep-number';n.textContent=String(i+1).padStart(2,'0');
