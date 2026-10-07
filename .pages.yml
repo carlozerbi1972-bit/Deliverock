@@ -1,0 +1,24 @@
+
+content:
+  - name: repertorio
+    label: Repertorio
+    type: collection
+    path: repertorio
+    format: json
+    fields:
+      - name: title
+        label: Titolo
+        type: string
+        required: true
+      - name: artist
+        label: Artista
+        type: string
+      - name: category
+        label: Categoria
+        type: select
+        options:
+          values:
+            - name: internazionale
+              label: Rock internazionale
+            - name: italiano
+              label: Rock italiano
