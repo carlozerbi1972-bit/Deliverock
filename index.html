@@ -27,6 +27,23 @@
 @media(max-width:650px){.dr-band-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dr-band-info{padding:14px 11px}.dr-band-info h4{font-size:1.12rem}.dr-band-desc{font-size:.84rem}}
 @media(max-width:370px){.dr-band-grid{grid-template-columns:1fr}}
 </style>
+<style id="dr-live-gallery-styles">
+.dr-live-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.dr-live-gallery-card{margin:0;background:#151e22;border:1px solid #304146;overflow:hidden}
+.dr-live-gallery-card button{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.dr-live-gallery-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .2s}
+.dr-live-gallery-card button:hover img{transform:scale(1.025)}
+.dr-live-gallery-card figcaption{padding:14px 16px;color:#e9f3f4;font-weight:700;font-size:.95rem}
+.dr-live-gallery-status{color:#a9b6ba;margin:15px 0}
+.dr-video-area{margin-top:30px}
+.dr-live-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px 24px}
+.dr-live-lightbox[hidden]{display:none}
+.dr-live-lightbox img{max-width:95vw;max-height:78vh;object-fit:contain}
+.dr-live-lightbox p{color:white;text-align:center;margin:14px 0}
+.dr-live-lightbox-close{position:absolute;right:18px;top:10px;background:transparent;border:0;color:white;font-size:40px;cursor:pointer}
+@media(max-width:850px){.dr-live-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.dr-live-gallery{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <header class="topbar"><a aria-label="Deliverock home" class="brand" href="#home"><span class="brand-icon">🤘</span><span>de<span class="cap">L</span>iverock</span></a><button aria-controls="nav" aria-expanded="false" class="menu-toggle" type="button">☰ <span class="sr-only">Apri menu</span></button><nav aria-label="Navigazione principale" id="nav"><a href="#home">Home</a><a href="#band">La band</a><a href="#live">Live</a><a href="#repertorio">Repertorio</a><a href="#gallery">Gallery</a><a href="#contatti">Contatti</a></nav></header>
@@ -40,7 +57,7 @@
 </section>
 <section class="section live-section" id="live"><div class="section-heading"><span class="kicker">02 / ON STAGE</span><h2>PROSSIMI <span>LIVE</span></h2></div><div class="live-card"><div class="live-symbol">✳</div><div><h3>Ci vediamo sotto il palco!</h3><p>Le prossime date saranno annunciate qui. Torna a trovarci per scoprire dove suoneremo.</p></div><span class="live-status">COMING SOON</span></div><p class="editor-note">Per aggiungere un concerto, aggiorneremo questa sezione con data, locale, città e orario.</p></section>
 <section class="section setlist" id="repertorio"><div class="section-heading"><span class="kicker">03 / THE MUSIC</span><h2>IL NOSTRO <span>REPERTORIO</span></h2></div><p class="bigcopy">I pezzi che conosci. <strong>L’energia che non ti aspetti.</strong></p><p>Dal rock internazionale ai grandi successi italiani: canzoni da cantare e ballare insieme. Il repertorio può variare da un concerto all’altro.</p><div aria-label="Filtra repertorio" class="dr-rep-toolbar" role="group"><button class="dr-rep-filter active" data-category="tutti" type="button">TUTTI</button><button class="dr-rep-filter" data-category="internazionale" type="button">ROCK INTERNAZIONALE</button><button class="dr-rep-filter" data-category="italiano" type="button">ROCK ITALIANO</button><span aria-live="polite" id="dr-rep-count"></span></div><div aria-live="polite" class="dr-rep-grid" id="dr-rep-grid"></div><p class="dr-rep-message" id="dr-rep-message">Caricamento repertorio…</p></section>
-<section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div class="gallery-grid"><div class="gallery-feature"><img alt="Deliverock, foto del gruppo" loading="lazy" src="assets/band.png"/><span>DELIVEROCK / THE BAND</span></div><div class="gallery-placeholder"><span class="bigmark">▶</span><h3>LIVE VIDEO</h3><p>Presto i video delle nostre serate.</p></div></div></section>
+<section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div id="dr-live-gallery" class="dr-live-gallery" aria-live="polite"></div><p id="dr-live-gallery-status" class="dr-live-gallery-status">Caricamento delle fotografie live…</p><div class="gallery-grid dr-video-area"><div class="gallery-placeholder"><span class="bigmark">▶</span><h3>LIVE VIDEO</h3><p>Presto i video delle nostre serate.</p></div></div></section>
 <section class="contact" id="contatti"><span class="kicker">05 / LET'S ROCK</span><h2>FACCIAMO <span>RUMORE.</span></h2><p>Vuoi i Deliverock sul palco del tuo locale o al tuo evento?</p><p>Per le prenotazioni, i contatti saranno pubblicati presto.</p><a class="btn primary" href="#home">TORNA SU ↑</a></section>
 </main><footer><span>© <span id="year"></span> DELIVEROCK</span><span>ROCK PARTY BAND · MADE FOR LIVE MUSIC</span></footer>
 <script src="script.js"></script>
@@ -154,6 +171,56 @@
       if(!items.length){grid.replaceChildren();status.textContent='Le schede dei musicisti saranno disponibili a breve.';return}
       status.textContent='';render(items);
     }catch(e){grid.replaceChildren();status.textContent='Schede temporaneamente non disponibili. Riprova tra qualche minuto.';console.warn('Pages CMS Band:',e)}
+  }
+  load();
+})();
+</script>
+<script id="dr-live-gallery-script">
+(()=>{
+  'use strict';
+  const grid=document.getElementById('dr-live-gallery');
+  const status=document.getElementById('dr-live-gallery-status');
+  const repo='carlozerbi1972-bit/Deliverock';
+  function imageURL(value){
+    if(value&&typeof value==='object')value=value.src||value.path||value.url||'';
+    const v=String(value||'').trim();
+    if(/^https:\/\//i.test(v))return v;
+    if(!v||/^(?:http:|data:|javascript:)/i.test(v))return '';
+    return '/Deliverock/'+v.replace(/^\/+/, '').replace(/^Deliverock\//i,'');
+  }
+  const lightbox=document.createElement('div');lightbox.className='dr-live-lightbox';lightbox.hidden=true;
+  const close=document.createElement('button');close.className='dr-live-lightbox-close';close.type='button';close.textContent='×';close.setAttribute('aria-label','Chiudi fotografia');
+  const large=document.createElement('img');const caption=document.createElement('p');
+  lightbox.append(close,large,caption);document.body.append(lightbox);
+  function dismiss(){lightbox.hidden=true;large.removeAttribute('src')}
+  close.addEventListener('click',dismiss);
+  lightbox.addEventListener('click',e=>{if(e.target===lightbox)dismiss()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!lightbox.hidden)dismiss()});
+  function render(items){
+    grid.replaceChildren();let shown=0;
+    for(const item of items){
+      const src=imageURL(item.photo);if(!src)continue;
+      const title=String(item.title||'Foto live').trim();
+      const figure=document.createElement('figure');figure.className='dr-live-gallery-card';
+      const btn=document.createElement('button');btn.type='button';btn.setAttribute('aria-label','Ingrandisci '+title);
+      const img=document.createElement('img');img.src=src;img.alt=title;img.loading='lazy';
+      img.onerror=()=>figure.remove();
+      btn.append(img);btn.addEventListener('click',()=>{large.src=src;large.alt=title;caption.textContent=title;lightbox.hidden=false;close.focus()});
+      const label=document.createElement('figcaption');label.textContent=title;
+      figure.append(btn,label);grid.append(figure);shown++;
+    }
+    status.textContent=shown?'':'Le fotografie dei concerti arriveranno presto.';
+  }
+  async function load(){
+    try{
+      const r=await fetch('https://api.github.com/repos/'+repo+'/contents/gallery?ref=main',{headers:{Accept:'application/vnd.github+json'}});
+      if(!r.ok)throw Error('GitHub API '+r.status);
+      const files=(await r.json()).filter(f=>f.type==='file'&&/\.(?:json|md)$/i.test(f.name));
+      const entries=(await Promise.all(files.map(async f=>{
+        try{const rr=await fetch(f.download_url);if(!rr.ok)return null;return JSON.parse(await rr.text())}catch(e){return null}
+      }))).filter(x=>x&&x.photo);
+      render(entries);
+    }catch(e){status.textContent='Fotografie temporaneamente non disponibili. Riprova più tardi.';console.warn('Pages CMS Gallery:',e)}
   }
   load();
 })();
