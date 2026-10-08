@@ -22,3 +22,25 @@ content:
               label: Rock internazionale
             - name: italiano
               label: Rock italiano
+
+  - name: band
+    label: La Band
+    type: collection
+    path: band
+    format: json
+    fields:
+      - name: title
+        label: Nome
+        type: string
+        required: true
+      - name: role
+        label: Strumento / ruolo
+        type: string
+        required: true
+      - name: description
+        label: Breve descrizione
+        type: text
+      - name: photo
+        label: Fotografia
+        type: image
+
