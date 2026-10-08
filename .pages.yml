@@ -57,6 +57,25 @@ content:
       - name: photo
         label: Fotografia
         type: image
+        
+  - name: videos
+    label: Video Live
+    type: collection
+    path: videos
+    format: json
+    fields:
+      - name: title
+        label: Titolo del video
+        type: string
+        required: true
+      - name: url
+        label: Link YouTube
+        type: string
+        required: true
+      - name: description
+        label: Descrizione
+        type: text
+
 
 media:
   input: assets/band
