@@ -43,6 +43,21 @@ content:
       - name: photo
         label: Fotografia
         type: image
+        
+  - name: gallery
+    label: Foto Live
+    type: collection
+    path: gallery
+    format: json
+    fields:
+      - name: title
+        label: Titolo della foto
+        type: string
+        required: true
+      - name: photo
+        label: Fotografia
+        type: image
+
 media:
   input: assets/band
   output: /assets/band
