@@ -7,18 +7,42 @@
 <title>Deliverock | Rock Party Band</title><link href="style.css" rel="stylesheet"/>
 <style id="deliverock-repertoire-styles">
 .dr-rep-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:32px 0 24px}.dr-rep-filter{background:#0d1518;border:1px solid #1cc8bf;color:#f1fafa;border-radius:4px;padding:12px 17px;font:700 13px/1.3 inherit;cursor:pointer;letter-spacing:.04em}.dr-rep-filter.active,.dr-rep-filter:hover{background:#23d7ca;color:#071112}.dr-rep-toolbar #dr-rep-count{margin-left:auto;color:#23d7ca;font-weight:800}.dr-rep-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.dr-rep-card{position:relative;min-height:142px;padding:22px 20px;background:linear-gradient(140deg,#19282c,#0b1114 75%);border:1px solid #168e89;border-radius:6px;box-shadow:inset 0 1px 0 #ffffff10;overflow:hidden}.dr-rep-card:after{content:'✦';position:absolute;right:8px;bottom:-24px;font-size:105px;color:#ffffff07;pointer-events:none}.dr-rep-number{font-weight:900;font-size:23px;color:#25d7ca;line-height:1}.dr-rep-title{font-size:clamp(16px,1.8vw,22px);line-height:1.15;font-weight:900;color:#fff;text-transform:uppercase;margin:12px 0 7px;overflow-wrap:anywhere}.dr-rep-artist{color:#b8c9cb;font-size:14px}.dr-rep-message{color:#b8c9cb;margin-top:14px}.dr-rep-card[hidden]{display:none}@media(max-width:800px){.dr-rep-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.dr-rep-grid{grid-template-columns:1fr}.dr-rep-toolbar #dr-rep-count{width:100%;margin-left:0}.dr-rep-card{min-height:118px}}
-</style></head>
+</style>
+<style>
+.dr-band-heading{text-align:center;margin:68px 0 28px}
+.dr-band-heading h3{font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;margin:12px 0;color:#f6fafb;font-weight:900;letter-spacing:.025em}
+.dr-band-heading h3 span{color:#2cdbc9}
+.dr-band-heading p{color:#a9b6ba}
+.dr-band-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+.dr-band-card{background:#151e22;border:1px solid #304146;min-width:0;overflow:hidden;transition:transform .2s,border-color .2s}
+.dr-band-card:hover{transform:translateY(-4px);border-color:#2cdbc9}
+.dr-band-photo{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#273338;filter:grayscale(100%)}
+.dr-band-placeholder{width:100%;aspect-ratio:4/5;background:linear-gradient(145deg,#243238,#11181b);display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#2cdbc9}
+.dr-band-info{padding:18px 15px 22px}
+.dr-band-info h4{font-size:1.35rem;line-height:1.2;margin:0 0 8px;color:#fff}
+.dr-band-role{color:#2cdbc9;font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px}
+.dr-band-desc{color:#c0cbd0;font-size:.91rem;line-height:1.6;margin:0;overflow-wrap:anywhere}
+.dr-band-message,.dr-band-loading{color:#a9b6ba;text-align:center;grid-column:1/-1}
+@media(max-width:1050px){.dr-band-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.dr-band-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dr-band-info{padding:14px 11px}.dr-band-info h4{font-size:1.12rem}.dr-band-desc{font-size:.84rem}}
+@media(max-width:370px){.dr-band-grid{grid-template-columns:1fr}}
+</style>
+</head>
 <body>
 <header class="topbar"><a aria-label="Deliverock home" class="brand" href="#home"><span class="brand-icon">🤘</span><span>de<span class="cap">L</span>iverock</span></a><button aria-controls="nav" aria-expanded="false" class="menu-toggle" type="button">☰ <span class="sr-only">Apri menu</span></button><nav aria-label="Navigazione principale" id="nav"><a href="#home">Home</a><a href="#band">La band</a><a href="#live">Live</a><a href="#repertorio">Repertorio</a><a href="#gallery">Gallery</a><a href="#contatti">Contatti</a></nav></header>
 <main>
 <section class="hero" id="home"><div class="hero-photo"></div><div class="hero-shade"></div><div class="hero-content"><p class="eyebrow">THE SOUND OF A GREAT NIGHT</p><img alt="Logo deLiverock" class="hero-logo" src="assets/logo.png"/><h1>ROCK IS <em>ALIVE!</em></h1><p class="lead">Rock coinvolgente. Divertimento. Energia dal vivo.</p><div class="actions"><a class="btn primary" href="#live">I NOSTRI LIVE <span>↗</span></a><a class="btn ghost" href="#band">SCOPRI LA BAND</a></div></div><div class="hero-edge">SCROLL TO ROCK <span>↓</span></div></section>
-<div aria-hidden="true" class="marquee"><span>LIVE MUSIC ✦ ROCK COVER BAND ✦ DELIVEROCK ✦ LIVE MUSIC ✦ ROCK COVER BAND ✦ DELIVEROCK ✦</span></div>
-<section class="section about" id="band"><div class="section-heading"><span class="kicker">01 / CHI SIAMO</span><h2>LA <span>BAND</span></h2></div><div class="about-grid"><div><p class="bigcopy">Non solo canzoni. <strong>Una serata da vivere.</strong></p><p>I Deliverock sono una Rock Party Band: musica coinvolgente, divertimento e tutta l'energia del rock suonata dal vivo.</p><p>Un repertorio pensato per cantare, ballare e condividere la passione per la musica.</p><a class="text-link" href="#contatti">INVITACI SUL TUO PALCO ↗</a></div><div class="photo-frame"><img alt="Fotografia della band Deliverock" loading="lazy" src="assets/band.png"/></div></div></section>
+<div aria-hidden="true" class="marquee"><span>LIVE MUSIC ✦ ROCK PARTY BAND ✦ DELIVEROCK ✦ LIVE MUSIC ✦ ROCK PARTY BAND ✦ DELIVEROCK ✦</span></div>
+<section class="section about" id="band"><div class="section-heading"><span class="kicker">01 / CHI SIAMO</span><h2>LA <span>BAND</span></h2></div><div class="about-grid"><div><p class="bigcopy">Non solo canzoni. <strong>Una serata da vivere.</strong></p><p>I Deliverock sono una Rock Party Band: musica coinvolgente, divertimento e tutta l'energia del rock suonata dal vivo.</p><p>Un repertorio pensato per cantare, ballare e condividere la passione per la musica.</p><a class="text-link" href="#contatti">INVITACI SUL TUO PALCO ↗</a></div><div class="photo-frame"><img alt="Fotografia della band Deliverock" loading="lazy" src="assets/band.png"/></div></div>
+<div class="dr-band-heading"><span class="kicker">MEET THE BAND</span><h3>I VOLTI DEL <span>ROCK</span></h3><p>Cinque musicisti. Un'unica energia.</p></div>
+<div id="dr-band-grid" class="dr-band-grid" aria-live="polite"><p class="dr-band-loading">Caricamento delle schede dei musicisti…</p></div>
+<p id="dr-band-message" class="dr-band-message" role="status"></p>
+</section>
 <section class="section live-section" id="live"><div class="section-heading"><span class="kicker">02 / ON STAGE</span><h2>PROSSIMI <span>LIVE</span></h2></div><div class="live-card"><div class="live-symbol">✳</div><div><h3>Ci vediamo sotto il palco!</h3><p>Le prossime date saranno annunciate qui. Torna a trovarci per scoprire dove suoneremo.</p></div><span class="live-status">COMING SOON</span></div><p class="editor-note">Per aggiungere un concerto, aggiorneremo questa sezione con data, locale, città e orario.</p></section>
 <section class="section setlist" id="repertorio"><div class="section-heading"><span class="kicker">03 / THE MUSIC</span><h2>IL NOSTRO <span>REPERTORIO</span></h2></div><p class="bigcopy">I pezzi che conosci. <strong>L’energia che non ti aspetti.</strong></p><p>Dal rock internazionale ai grandi successi italiani: canzoni da cantare e ballare insieme. Il repertorio può variare da un concerto all’altro.</p><div aria-label="Filtra repertorio" class="dr-rep-toolbar" role="group"><button class="dr-rep-filter active" data-category="tutti" type="button">TUTTI</button><button class="dr-rep-filter" data-category="internazionale" type="button">ROCK INTERNAZIONALE</button><button class="dr-rep-filter" data-category="italiano" type="button">ROCK ITALIANO</button><span aria-live="polite" id="dr-rep-count"></span></div><div aria-live="polite" class="dr-rep-grid" id="dr-rep-grid"></div><p class="dr-rep-message" id="dr-rep-message">Caricamento repertorio…</p></section>
 <section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div class="gallery-grid"><div class="gallery-feature"><img alt="Deliverock, foto del gruppo" loading="lazy" src="assets/band.png"/><span>DELIVEROCK / THE BAND</span></div><div class="gallery-placeholder"><span class="bigmark">▶</span><h3>LIVE VIDEO</h3><p>Presto i video delle nostre serate.</p></div></div></section>
 <section class="contact" id="contatti"><span class="kicker">05 / LET'S ROCK</span><h2>FACCIAMO <span>RUMORE.</span></h2><p>Vuoi i Deliverock sul palco del tuo locale o al tuo evento?</p><p>Per le prenotazioni, i contatti saranno pubblicati presto.</p><a class="btn primary" href="#home">TORNA SU ↑</a></section>
-</main><footer><span>© <span id="year"></span> DELIVEROCK</span><span>ROCK COVER BAND · MADE FOR LIVE MUSIC</span></footer>
+</main><footer><span>© <span id="year"></span> DELIVEROCK</span><span>ROCK PARTY BAND · MADE FOR LIVE MUSIC</span></footer>
 <script src="script.js"></script>
 <script id="deliverock-repertoire-script">
 (()=>{
@@ -71,4 +95,67 @@
  }
  loadCMS();
 })();
-</script></body></html>
+</script>
+<script>
+(()=>{
+  'use strict';
+  const repo='carlozerbi1972-bit/Deliverock';
+  const grid=document.getElementById('dr-band-grid');
+  const status=document.getElementById('dr-band-message');
+  const order=['maurizio','mike','carlo','fabrizio','salvatore'];
+  const fallbackRoles={maurizio:'Voce',mike:'Chitarra solista',carlo:'Chitarra e cori',fabrizio:'Basso e cori',salvatore:'Batteria'};
+  const pathRoot='/Deliverock/';
+  const clean=s=>String(s??'').trim();
+  function imageURL(value){
+    if(value && typeof value==='object')value=value.src||value.path||value.url||'';
+    let v=clean(value);if(!v)return '';
+    if(/^https:\/\//i.test(v))return v;
+    if(/^http:/i.test(v)||/^data:/i.test(v)||/^javascript:/i.test(v))return '';
+    // Pages CMS commonly stores an absolute repo-relative path, e.g. /media/name.jpg.
+    return pathRoot+v.replace(/^\/+/, '').replace(/^Deliverock\//i,'');
+  }
+  function render(items){
+    grid.replaceChildren();
+    items.sort((a,b)=>{
+      const rank=x=>{const i=order.indexOf(clean(x.title).toLocaleLowerCase('it'));return i<0?999:i};
+      return rank(a)-rank(b)||clean(a.title).localeCompare(clean(b.title),'it');
+    });
+    for(const member of items){
+      const card=document.createElement('article');card.className='dr-band-card';
+      const photo=imageURL(member.photo);
+      if(photo){
+        const img=document.createElement('img');img.className='dr-band-photo';img.src=photo;img.alt='Foto di '+clean(member.title);img.loading='lazy';
+        img.onerror=()=>{const placeholder=document.createElement('div');placeholder.className='dr-band-placeholder';placeholder.textContent='♫';img.replaceWith(placeholder)};
+        card.append(img);
+      }else{const placeholder=document.createElement('div');placeholder.className='dr-band-placeholder';placeholder.textContent='♫';card.append(placeholder)}
+      const info=document.createElement('div');info.className='dr-band-info';
+      const title=document.createElement('h4');title.textContent=clean(member.title);
+      const role=document.createElement('p');role.className='dr-band-role';role.textContent=clean(member.role)||fallbackRoles[clean(member.title).toLocaleLowerCase('it')]||'';
+      const desc=document.createElement('p');desc.className='dr-band-desc';desc.textContent=clean(member.description);
+      info.append(title,role,desc);card.append(info);grid.append(card);
+    }
+  }
+  async function load(){
+    try{
+      const r=await fetch('https://api.github.com/repos/'+repo+'/contents/band?ref=main',{headers:{Accept:'application/vnd.github+json'}});
+      if(!r.ok)throw Error('GitHub API '+r.status);
+      const files=(await r.json()).filter(x=>x.type==='file'&&/\.(md|json)$/i.test(x.name));
+      const items=(await Promise.all(files.map(async file=>{
+        try{
+          const response=await fetch(file.download_url);
+          if(!response.ok)return null;
+          const raw=(await response.text()).trim();
+          // Pages CMS format json can be stored with a .md extension.
+          const obj=JSON.parse(raw);
+          if(!obj||typeof obj!=='object'||!clean(obj.title))return null;
+          return obj;
+        }catch(e){return null}
+      }))).filter(Boolean);
+      if(!items.length){grid.replaceChildren();status.textContent='Le schede dei musicisti saranno disponibili a breve.';return}
+      status.textContent='';render(items);
+    }catch(e){grid.replaceChildren();status.textContent='Schede temporaneamente non disponibili. Riprova tra qualche minuto.';console.warn('Pages CMS Band:',e)}
+  }
+  load();
+})();
+</script>
+</body></html>
