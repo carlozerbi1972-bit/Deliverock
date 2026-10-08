@@ -43,4 +43,6 @@ content:
       - name: photo
         label: Fotografia
         type: image
-
+media:
+  input: assets/band
+  output: /assets/band
