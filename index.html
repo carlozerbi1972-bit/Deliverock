@@ -35,7 +35,7 @@
 .dr-live-gallery-card button:hover img{transform:scale(1.025)}
 .dr-live-gallery-card figcaption{padding:14px 16px;color:#e9f3f4;font-weight:700;font-size:.95rem}
 .dr-live-gallery-status{color:#a9b6ba;margin:15px 0}
-.dr-video-area{margin-top:30px}
+.dr-video-area{margin-top:44px}.dr-video-title{font-size:clamp(1.5rem,3vw,2rem);color:#fff;margin:0 0 10px}.dr-video-title span{color:#2cdbc9}.dr-video-intro{color:#a9b6ba;margin:0 0 20px}.dr-video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.dr-video-card{background:#151e22;border:1px solid #304146;min-width:0;overflow:hidden}.dr-video-frame{aspect-ratio:16/9;background:#080c0e}.dr-video-frame iframe{width:100%;height:100%;border:0;display:block}.dr-video-info{padding:16px 18px}.dr-video-info h4{margin:0 0 8px;color:#fff;font-size:1.1rem}.dr-video-info p{margin:0;color:#b9c8cc;font-size:.94rem}.dr-video-status{color:#a9b6ba;margin:12px 0}@media(max-width:650px){.dr-video-grid{grid-template-columns:1fr}}
 .dr-live-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px 24px}
 .dr-live-lightbox[hidden]{display:none}
 .dr-live-lightbox img{max-width:95vw;max-height:78vh;object-fit:contain}
@@ -67,7 +67,7 @@
 </section>
 <section class="section live-section" id="live"><div class="section-heading"><span class="kicker">02 / ON STAGE</span><h2>PROSSIMI <span>LIVE</span></h2></div><div class="live-card"><div class="live-symbol">✳</div><div><h3>Ci vediamo sotto il palco!</h3><p>Le prossime date saranno annunciate qui. Torna a trovarci per scoprire dove suoneremo.</p></div><span class="live-status">COMING SOON</span></div><p class="editor-note">Per aggiungere un concerto, aggiorneremo questa sezione con data, locale, città e orario.</p></section>
 <section class="section setlist" id="repertorio"><div class="section-heading"><span class="kicker">03 / THE MUSIC</span><h2>IL NOSTRO <span>REPERTORIO</span></h2></div><p class="bigcopy">I pezzi che conosci. <strong>L’energia che non ti aspetti.</strong></p><p>Dal rock internazionale ai grandi successi italiani: canzoni da cantare e ballare insieme. Il repertorio può variare da un concerto all’altro.</p><div aria-label="Filtra repertorio" class="dr-rep-toolbar" role="group"><button class="dr-rep-filter active" data-category="tutti" type="button">TUTTI</button><button class="dr-rep-filter" data-category="internazionale" type="button">ROCK INTERNAZIONALE</button><button class="dr-rep-filter" data-category="italiano" type="button">ROCK ITALIANO</button><span aria-live="polite" id="dr-rep-count"></span></div><div aria-live="polite" class="dr-rep-grid" id="dr-rep-grid"></div><p class="dr-rep-message" id="dr-rep-message">Caricamento repertorio…</p></section>
-<section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div class="dr-gallery-controls"><button type="button" class="dr-gallery-arrow" id="dr-gallery-prev" aria-label="Foto precedenti">&#8249;</button><button type="button" class="dr-gallery-arrow" id="dr-gallery-next" aria-label="Foto successive">&#8250;</button></div><div id="dr-live-gallery" class="dr-live-gallery" tabindex="0" aria-label="Galleria fotografica scorrevole" aria-live="polite"></div><p id="dr-live-gallery-status" class="dr-live-gallery-status">Caricamento delle fotografie live…</p><div class="gallery-grid dr-video-area"><div class="gallery-placeholder"><span class="bigmark">▶</span><h3>LIVE VIDEO</h3><p>Presto i video delle nostre serate.</p></div></div></section>
+<section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div class="dr-gallery-controls"><button type="button" class="dr-gallery-arrow" id="dr-gallery-prev" aria-label="Foto precedenti">&#8249;</button><button type="button" class="dr-gallery-arrow" id="dr-gallery-next" aria-label="Foto successive">&#8250;</button></div><div id="dr-live-gallery" class="dr-live-gallery" tabindex="0" aria-label="Galleria fotografica scorrevole" aria-live="polite"></div><p id="dr-live-gallery-status" class="dr-live-gallery-status">Caricamento delle fotografie live…</p><div class="dr-video-area"><h3 class="dr-video-title">LIVE <span>VIDEO</span></h3><p class="dr-video-intro">Rivivi i nostri concerti: guarda i video direttamente qui!</p><div class="dr-video-grid" id="dr-video-grid"></div><p class="dr-video-status" id="dr-video-status">Caricamento dei video…</p></div></section>
 <section class="dr-social" id="social" aria-labelledby="dr-social-title">
 <span class="kicker">05 / STAY CONNECTED</span>
 <h2 id="dr-social-title">SEGUICI SU <span>INSTAGRAM</span></h2>
@@ -253,6 +253,64 @@
       }))).filter(x=>x&&x.photo);
       render(entries);
     }catch(e){status.textContent='Fotografie temporaneamente non disponibili. Riprova più tardi.';console.warn('Pages CMS Gallery:',e)}
+  }
+  load();
+})();
+</script>
+<script id="dr-live-video-script">
+(()=>{
+  'use strict';
+  const grid=document.getElementById('dr-video-grid');
+  const status=document.getElementById('dr-video-status');
+  const repo='carlozerbi1972-bit/Deliverock';
+  const firstVideo={title:'Deliverock – Live',url:'https://youtu.be/S_d3bCOkywo',description:''};
+  function youtubeId(value){
+    const raw=String(value||'').trim();
+    if(/^[a-zA-Z0-9_-]{11}$/.test(raw))return raw;
+    try{
+      const u=new URL(raw);
+      const host=u.hostname.toLowerCase().replace(/^www\./,'');
+      let id='';
+      if(host==='youtu.be')id=u.pathname.split('/')[1]||'';
+      else if(host==='youtube.com'||host==='m.youtube.com'||host==='youtube-nocookie.com'){
+        if(u.pathname==='/watch')id=u.searchParams.get('v')||'';
+        else if(/^\/(shorts|embed|live)\//.test(u.pathname))id=u.pathname.split('/')[2]||'';
+      }
+      return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:'';
+    }catch(e){return ''}
+  }
+  function render(items){
+    grid.replaceChildren();const seen=new Set();let count=0;
+    for(const item of items){
+      const id=youtubeId(item.url||item.youtube||item.link);
+      if(!id||seen.has(id))continue;
+      seen.add(id);count++;
+      const card=document.createElement('article');card.className='dr-video-card';
+      const frame=document.createElement('div');frame.className='dr-video-frame';
+      const iframe=document.createElement('iframe');
+      iframe.src='https://www.youtube-nocookie.com/embed/'+id;
+      iframe.title=String(item.title||'Video live Deliverock');iframe.loading='lazy';
+      iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy='strict-origin-when-cross-origin';iframe.allowFullscreen=true;
+      frame.append(iframe);
+      const info=document.createElement('div');info.className='dr-video-info';
+      const title=document.createElement('h4');title.textContent=String(item.title||'Video live Deliverock');info.append(title);
+      if(item.description){const desc=document.createElement('p');desc.textContent=String(item.description);info.append(desc)}
+      card.append(frame,info);grid.append(card);
+    }
+    status.textContent=count?'':'Nessun video disponibile al momento.';
+  }
+  async function load(){
+    try{
+      const r=await fetch('https://api.github.com/repos/'+repo+'/contents/videos?ref=main',{headers:{Accept:'application/vnd.github+json'}});
+      if(r.status===404){render([firstVideo]);return}
+      if(!r.ok)throw Error('GitHub API '+r.status);
+      const files=(await r.json()).filter(f=>f.type==='file'&&/\.(?:json|md)$/i.test(f.name));
+      const entries=(await Promise.all(files.map(async f=>{
+        try{const rr=await fetch(f.download_url);if(!rr.ok)return null;return JSON.parse(await rr.text())}catch(e){return null}
+      }))).filter(Boolean);
+      render(entries.length?entries:[firstVideo]);
+    }catch(e){render([firstVideo]);console.warn('Pages CMS Videos:',e)}
   }
   load();
 })();
