@@ -28,7 +28,7 @@
 @media(max-width:370px){.dr-band-grid{grid-template-columns:1fr}}
 </style>
 <style id="dr-live-gallery-styles">
-.dr-live-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.dr-live-gallery{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:thin;padding:3px 2px 14px}.dr-live-gallery:focus-visible{outline:2px solid #2dd4bf}.dr-live-gallery-card{flex:0 0 calc((100% - 36px)/3);scroll-snap-align:start}.dr-gallery-controls{display:flex;justify-content:flex-end;gap:10px;margin:0 0 14px}.dr-gallery-arrow{border:1px solid #2dd4bf;color:#2dd4bf;background:#151e22;border-radius:50%;width:44px;height:44px;font-size:24px;cursor:pointer}.dr-gallery-arrow:disabled{opacity:.35;cursor:default}.dr-gallery-arrow:hover:not(:disabled){background:#244447}
 .dr-live-gallery-card{margin:0;background:#151e22;border:1px solid #304146;overflow:hidden}
 .dr-live-gallery-card button{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
 .dr-live-gallery-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .2s}
@@ -41,8 +41,9 @@
 .dr-live-lightbox img{max-width:95vw;max-height:78vh;object-fit:contain}
 .dr-live-lightbox p{color:white;text-align:center;margin:14px 0}
 .dr-live-lightbox-close{position:absolute;right:18px;top:10px;background:transparent;border:0;color:white;font-size:40px;cursor:pointer}
-@media(max-width:850px){.dr-live-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.dr-live-gallery{grid-template-columns:1fr}}
+@media(max-width:850px){.dr-live-gallery-card{flex-basis:calc((100% - 18px)/2)}}
+@media(max-width:520px){.dr-live-gallery-card{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.dr-live-gallery{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -57,7 +58,7 @@
 </section>
 <section class="section live-section" id="live"><div class="section-heading"><span class="kicker">02 / ON STAGE</span><h2>PROSSIMI <span>LIVE</span></h2></div><div class="live-card"><div class="live-symbol">✳</div><div><h3>Ci vediamo sotto il palco!</h3><p>Le prossime date saranno annunciate qui. Torna a trovarci per scoprire dove suoneremo.</p></div><span class="live-status">COMING SOON</span></div><p class="editor-note">Per aggiungere un concerto, aggiorneremo questa sezione con data, locale, città e orario.</p></section>
 <section class="section setlist" id="repertorio"><div class="section-heading"><span class="kicker">03 / THE MUSIC</span><h2>IL NOSTRO <span>REPERTORIO</span></h2></div><p class="bigcopy">I pezzi che conosci. <strong>L’energia che non ti aspetti.</strong></p><p>Dal rock internazionale ai grandi successi italiani: canzoni da cantare e ballare insieme. Il repertorio può variare da un concerto all’altro.</p><div aria-label="Filtra repertorio" class="dr-rep-toolbar" role="group"><button class="dr-rep-filter active" data-category="tutti" type="button">TUTTI</button><button class="dr-rep-filter" data-category="internazionale" type="button">ROCK INTERNAZIONALE</button><button class="dr-rep-filter" data-category="italiano" type="button">ROCK ITALIANO</button><span aria-live="polite" id="dr-rep-count"></span></div><div aria-live="polite" class="dr-rep-grid" id="dr-rep-grid"></div><p class="dr-rep-message" id="dr-rep-message">Caricamento repertorio…</p></section>
-<section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div id="dr-live-gallery" class="dr-live-gallery" aria-live="polite"></div><p id="dr-live-gallery-status" class="dr-live-gallery-status">Caricamento delle fotografie live…</p><div class="gallery-grid dr-video-area"><div class="gallery-placeholder"><span class="bigmark">▶</span><h3>LIVE VIDEO</h3><p>Presto i video delle nostre serate.</p></div></div></section>
+<section class="section gallery" id="gallery"><div class="section-heading"><span class="kicker">04 / MOMENTS</span><h2>FOTO <span>&amp; VIDEO</span></h2></div><div class="dr-gallery-controls"><button type="button" class="dr-gallery-arrow" id="dr-gallery-prev" aria-label="Foto precedenti">&#8249;</button><button type="button" class="dr-gallery-arrow" id="dr-gallery-next" aria-label="Foto successive">&#8250;</button></div><div id="dr-live-gallery" class="dr-live-gallery" tabindex="0" aria-label="Galleria fotografica scorrevole" aria-live="polite"></div><p id="dr-live-gallery-status" class="dr-live-gallery-status">Caricamento delle fotografie live…</p><div class="gallery-grid dr-video-area"><div class="gallery-placeholder"><span class="bigmark">▶</span><h3>LIVE VIDEO</h3><p>Presto i video delle nostre serate.</p></div></div></section>
 <section class="contact" id="contatti"><span class="kicker">05 / LET'S ROCK</span><h2>FACCIAMO <span>RUMORE.</span></h2><p>Vuoi i Deliverock sul palco del tuo locale o al tuo evento?</p><p>Per le prenotazioni, i contatti saranno pubblicati presto.</p><a class="btn primary" href="#home">TORNA SU ↑</a></section>
 </main><footer><span>© <span id="year"></span> DELIVEROCK</span><span>ROCK PARTY BAND · MADE FOR LIVE MUSIC</span></footer>
 <script src="script.js"></script>
@@ -117,6 +118,13 @@
 (()=>{
   'use strict';
   const repo='carlozerbi1972-bit/Deliverock';
+  const prev=document.getElementById('dr-gallery-prev');
+  const next=document.getElementById('dr-gallery-next');
+  function updateArrows(){const end=grid.scrollWidth-grid.clientWidth;prev.disabled=grid.scrollLeft<2;next.disabled=grid.scrollLeft>=end-2||end<=2;}
+  function move(dir){const card=grid.querySelector('.dr-live-gallery-card');if(!card)return;const gap=parseFloat(getComputedStyle(grid).gap)||0;grid.scrollBy({left:dir*(card.getBoundingClientRect().width+gap),behavior:'smooth'});}
+  prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
+  grid.addEventListener('scroll',updateArrows,{passive:true});window.addEventListener('resize',updateArrows);
+  grid.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();move(1)}else if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}});
   const grid=document.getElementById('dr-band-grid');
   const status=document.getElementById('dr-band-message');
   const order=['maurizio','mike','carlo','fabrizio','salvatore'];
@@ -181,6 +189,13 @@
   const grid=document.getElementById('dr-live-gallery');
   const status=document.getElementById('dr-live-gallery-status');
   const repo='carlozerbi1972-bit/Deliverock';
+  const prev=document.getElementById('dr-gallery-prev');
+  const next=document.getElementById('dr-gallery-next');
+  function updateArrows(){const end=grid.scrollWidth-grid.clientWidth;prev.disabled=grid.scrollLeft<2;next.disabled=grid.scrollLeft>=end-2||end<=2;}
+  function move(dir){const card=grid.querySelector('.dr-live-gallery-card');if(!card)return;const gap=parseFloat(getComputedStyle(grid).gap)||0;grid.scrollBy({left:dir*(card.getBoundingClientRect().width+gap),behavior:'smooth'});}
+  prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
+  grid.addEventListener('scroll',updateArrows,{passive:true});window.addEventListener('resize',updateArrows);
+  grid.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();move(1)}else if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}});
   function imageURL(value){
     if(value&&typeof value==='object')value=value.src||value.path||value.url||'';
     const v=String(value||'').trim();
@@ -210,6 +225,7 @@
       figure.append(btn,label);grid.append(figure);shown++;
     }
     status.textContent=shown?'':'Le fotografie dei concerti arriveranno presto.';
+    requestAnimationFrame(updateArrows);
   }
   async function load(){
     try{
