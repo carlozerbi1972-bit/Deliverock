@@ -54,6 +54,19 @@
 .dr-social-link{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#2cdbc9;color:#071113!important;text-decoration:none;padding:15px 24px;font-weight:900;letter-spacing:.03em;transition:background .2s,transform .2s}
 .dr-social-link:hover,.dr-social-link:focus-visible{background:#8bf3e9;transform:translateY(-2px)}
 </style>
+<style id="dr-booking-styles">
+.dr-booking{padding:80px max(22px,calc((100vw - 1180px)/2));background:linear-gradient(145deg,#0b1114,#111d21);border-top:1px solid #233237;text-align:center}
+.dr-booking .kicker{display:block;margin-bottom:15px;color:#2cdbc9}.dr-booking h2{font-size:clamp(2rem,5vw,3.6rem);line-height:1.1;color:#fff;margin:0 0 16px;font-weight:900}.dr-booking h2 span{color:#2cdbc9}
+.dr-booking-intro{max-width:690px;margin:0 auto 30px;color:#c4cfd1;line-height:1.7}
+.dr-booking-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto 26px}
+.dr-booking-link{min-width:0;display:flex;align-items:center;gap:14px;padding:22px 18px;border:1px solid #2c4146;background:#142126;color:#fff;text-decoration:none;text-align:left;transition:border-color .2s,transform .2s,background .2s}
+.dr-booking-link:hover,.dr-booking-link:focus-visible{border-color:#2cdbc9;background:#1a3033;transform:translateY(-2px)}
+.dr-booking-icon{color:#2cdbc9;flex:0 0 auto;font-size:27px;line-height:1}
+.dr-booking-link strong{display:block;font-size:1.02rem;margin-bottom:5px}.dr-booking-link small{display:block;color:#a8b9bc;overflow-wrap:anywhere;font-size:.85rem;line-height:1.4}
+.dr-booking-arrow{color:#2cdbc9;margin-left:auto;flex-shrink:0}
+.dr-booking-back{display:inline-block;color:#2cdbc9;text-decoration:none;font-weight:700;margin-top:12px}
+@media(max-width:820px){.dr-booking-links{grid-template-columns:1fr;max-width:520px}.dr-booking{padding-top:65px;padding-bottom:65px}}
+</style>
 </head>
 <body>
 <header class="topbar"><a aria-label="Deliverock home" class="brand" href="#home"><span class="brand-icon">🤘</span><span>de<span class="cap">L</span>iverock</span></a><button aria-controls="nav" aria-expanded="false" class="menu-toggle" type="button">☰ <span class="sr-only">Apri menu</span></button><nav aria-label="Navigazione principale" id="nav"><a href="#home">Home</a><a href="#band">La band</a><a href="#live">Live</a><a href="#repertorio">Repertorio</a><a href="#gallery">Gallery</a><a href="#social">Social</a><a href="#contatti">Contatti</a></nav></header>
@@ -75,7 +88,17 @@
 <p>Foto dal palco, backstage, video e novità sui prossimi live. Il rock continua anche fuori dal palco!</p>
 <a class="dr-social-link" href="https://www.instagram.com/deliverock_official/" target="_blank" rel="noopener noreferrer" aria-label="Segui Deliverock su Instagram (si apre in una nuova scheda)">SEGUICI SU INSTAGRAM ↗</a>
 </section>
-<section class="contact" id="contatti"><span class="kicker">06 / LET'S ROCK</span><h2>FACCIAMO <span>RUMORE.</span></h2><p>Vuoi i Deliverock sul palco del tuo locale o al tuo evento?</p><p>Per le prenotazioni, i contatti saranno pubblicati presto.</p><a class="btn primary" href="#home">TORNA SU ↑</a></section>
+<section class="dr-booking" id="contatti" aria-labelledby="dr-booking-title">
+<span class="kicker">06 / BOOKING &amp; CONTATTI</span>
+<h2 id="dr-booking-title">PORTA I <span>DELIVEROCK</span> SUL TUO PALCO!</h2>
+<p class="dr-booking-intro">Organizzi concerti, eventi o serate live? Contattaci per disponibilità, repertorio e informazioni. Siamo pronti a farvi cantare e ballare!</p>
+<div class="dr-booking-links">
+<a class="dr-booking-link" href="mailto:info@deliverock.it?subject=Richiesta%20booking%20Deliverock" aria-label="Scrivi un'email a info@deliverock.it"><span class="dr-booking-icon" aria-hidden="true">✉</span><span><strong>Scrivici una email</strong><small>info@deliverock.it</small></span><span class="dr-booking-arrow" aria-hidden="true">↗</span></a>
+<a class="dr-booking-link" href="https://wa.me/393356182875?text=Ciao%20Deliverock%2C%20vorrei%20informazioni%20per%20una%20serata%20live." target="_blank" rel="noopener noreferrer" aria-label="Scrivi ai Deliverock su WhatsApp al +39 335 6182875"><span class="dr-booking-icon" aria-hidden="true">◉</span><span><strong>Contattaci su WhatsApp</strong><small>+39 335 6182875</small></span><span class="dr-booking-arrow" aria-hidden="true">↗</span></a>
+<a class="dr-booking-link" href="https://www.instagram.com/deliverock_official/" target="_blank" rel="noopener noreferrer" aria-label="Contatta Deliverock su Instagram"><span class="dr-booking-icon" aria-hidden="true">◎</span><span><strong>Scrivici su Instagram</strong><small>@deliverock_official</small></span><span class="dr-booking-arrow" aria-hidden="true">↗</span></a>
+</div>
+<a class="dr-booking-back" href="#home">TORNA SU ↑</a>
+</section>
 </main><footer><span>© <span id="year"></span> DELIVEROCK</span><span>ROCK PARTY BAND · MADE FOR LIVE MUSIC</span></footer>
 <script src="script.js"></script>
 <script id="deliverock-repertoire-script">
