@@ -145,7 +145,7 @@
   const status=document.getElementById('dr-band-message');
   const order=['maurizio','mike','carlo','fabrizio','salvatore'];
   const fallbackRoles={maurizio:'Voce',mike:'Chitarra solista',carlo:'Chitarra e cori',fabrizio:'Basso e cori',salvatore:'Batteria'};
-  const pathRoot='/Deliverock/';
+  const pathRoot=location.hostname.endsWith('.github.io')?'/Deliverock/':'/';
   const clean=s=>String(s??'').trim();
   function imageURL(value){
     if(value && typeof value==='object')value=value.src||value.path||value.url||'';
@@ -217,7 +217,7 @@
     const v=String(value||'').trim();
     if(/^https:\/\//i.test(v))return v;
     if(!v||/^(?:http:|data:|javascript:)/i.test(v))return '';
-    return '/Deliverock/'+v.replace(/^\/+/, '').replace(/^Deliverock\//i,'');
+    return (location.hostname.endsWith('.github.io')?'/Deliverock/':'/')+v.replace(/^\/+/, '').replace(/^Deliverock\//i,'');
   }
   const lightbox=document.createElement('div');lightbox.className='dr-live-lightbox';lightbox.hidden=true;
   const close=document.createElement('button');close.className='dr-live-lightbox-close';close.type='button';close.textContent='×';close.setAttribute('aria-label','Chiudi fotografia');
