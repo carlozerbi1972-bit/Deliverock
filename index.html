@@ -134,13 +134,6 @@
 (()=>{
   'use strict';
   const repo='carlozerbi1972-bit/Deliverock';
-  const prev=document.getElementById('dr-gallery-prev');
-  const next=document.getElementById('dr-gallery-next');
-  function updateArrows(){const end=grid.scrollWidth-grid.clientWidth;prev.disabled=grid.scrollLeft<2;next.disabled=grid.scrollLeft>=end-2||end<=2;}
-  function move(dir){const card=grid.querySelector('.dr-live-gallery-card');if(!card)return;const gap=parseFloat(getComputedStyle(grid).gap)||0;grid.scrollBy({left:dir*(card.getBoundingClientRect().width+gap),behavior:'smooth'});}
-  prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
-  grid.addEventListener('scroll',updateArrows,{passive:true});window.addEventListener('resize',updateArrows);
-  grid.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();move(1)}else if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}});
   const grid=document.getElementById('dr-band-grid');
   const status=document.getElementById('dr-band-message');
   const order=['maurizio','mike','carlo','fabrizio','salvatore'];
